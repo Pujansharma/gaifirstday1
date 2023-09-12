@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sayari genarator</title>
-  <link rel="stylesheet" href="./style.css">
+    <title>Shayari Generator</title>
+   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div class="loader" id="loader"></div>
     <div class="container">
-        <h1>Shyare Generator</h1>
+        <h1>Shayari Generator</h1>
         <form id="queryForm">
-            <label for="topic">Enter a Shyare Topic:</label>
-            <input type="text" id="topic" name="topic" required placeholder="Add a topic"><br>
+            <label for="topic">Enter a Shayari Topic:</label>
+            <input type="text" id="topic" name="topic" required placeholder="Add a topic ex: Dog, Student"><br>
             <button type="submit">Generate Text</button>
+            <!-- Loading spinner -->
+            <div class="spinner"></div>
         </form>
         <div class="response" id="responseContainer">
+            <!-- Response will be displayed here -->
         </div>
     </div>
 
     <script>
-        const loader = document.getElementById("loader"); 
         const form = document.getElementById("queryForm");
         const responseContainer = document.getElementById("responseContainer");
+        const spinner = document.querySelector(".spinner");
 
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
             const topic = document.getElementById("topic").value;
 
+            // Show the loading spinner
+            spinner.style.display = "block";
+
             try {
-                const response = await fetch("https://tame-ruby-fish-wear.cyclic.app/", {
+                const response = await fetch("https://light-pig-zipper.cyclic.app/", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -46,6 +51,9 @@
                 }
             } catch (error) {
                 responseContainer.innerHTML = `<p class="error-text">An error occurred:</p><p>${error.message}</p>`;
+            } finally {
+                // Hide the loading spinner
+                spinner.style.display = "none";
             }
         });
     </script>
